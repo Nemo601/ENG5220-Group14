@@ -41,6 +41,7 @@ This project improves sustainability by encouraging automated recycling, reducin
 - [Team Members](#team-members)
 - [Contact](#contact)
 
+
 ---
 
 ## 📦 Installation
