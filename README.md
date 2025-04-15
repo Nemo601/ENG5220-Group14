@@ -1,7 +1,7 @@
 # 🗑️ Intelligent Classification Rubbish Bin (Team 14) 
 **_"Smarter Sorting, Cleaner Future"_**
 
-![LOGO](.LOGO.jpg)
+![LOGO](./LOGO.jpg)
 
 > Real-time Embedded System | Smart Waste Sorting | Environmental Automation | Raspberry Pi
 
