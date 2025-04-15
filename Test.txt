@@ -14,3 +14,50 @@ Version 2 Testing the motor for proper operation
 4/15/2025 13:30 starter motor 4
 4/15/2025 13:30 Spam type identified: other
 4/15/2025 13:30 starter motor 1 and 4
+
+Version 3 Testing the motor for keypads operation
+4/15/2025 13:42 garbage_sorting.cpp:2:5: error: ‘wiringPiSetupGpio’ was not declared in this scope
+    2 |     wiringPiSetupGpio();  // Using BCM Pin Numbering
+      |     ^~~~~~~~~~~~~~~~~
+4/15/2025 13:42 garbage_sorting.cpp:5:5: error: ‘StepperMotor’ was not declared in this scope
+    5 |     StepperMotor motor1({4, 17, 23, 24});
+      |     ^~~~~~~~~~~~
+4/15/2025 13:42 garbage_sorting.cpp:5:40: error: expected primary-expression before ‘)’ token
+    5 |     StepperMotor motor1({4, 17, 23, 24});
+      |                                        ^
+4/15/2025 13:42 garbage_sorting.cpp:6:17: error: expected ‘;’ before ‘motor2’
+    6 |     StepperMotor motor2({5, 6, 12, 13});
+      |                 ^~~~~~~
+      |                 ;
+4/15/2025 13:42 garbage_sorting.cpp:6:39: error: expected primary-expression before ‘)’ token
+    6 |     StepperMotor motor2({5, 6, 12, 13});
+      |                                       ^
+4/15/2025 13:42 garbage_sorting.cpp:7:17: error: expected ‘;’ before ‘motor3’
+    7 |     StepperMotor motor3({16, 20, 21, 26});
+      |                 ^~~~~~~
+      |                 ;
+4/15/2025 13:42 garbage_sorting.cpp:7:41: error: expected primary-expression before ‘)’ token
+    7 |     StepperMotor motor3({16, 20, 21, 26});
+      |                                         ^
+4/15/2025 13:42 garbage_sorting.cpp:8:17: error: expected ‘;’ before ‘motor4’
+    8 |     StepperMotor motor4({18, 19, 22, 27});
+      |                 ^~~~~~~
+      |                 ;
+4/15/2025 13:42 garbage_sorting.cpp:8:41: error: expected primary-expression before ‘)’ token
+    8 |     StepperMotor motor4({18, 19, 22, 27});
+      |                                         ^
+4/15/2025 13:42 garbage_sorting.cpp:11:5: error: ‘map’ was not declared in this scope
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |     ^~~
+4/15/2025 13:42 garbage_sorting.cpp:11:9: error: ‘string’ was not declared in this scope
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |         ^~~~~~
+4/15/2025 13:42 garbage_sorting.cpp:11:17: error: ‘vector’ was not declared in this scope
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |                 ^~~~~~
+4/15/2025 13:42 garbage_sorting.cpp:11:37: error: expected primary-expression before ‘>>’ token
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |                                     ^~
+4/15/2025 13:42 garbage_sorting.cpp:11:40: error: ‘motorMap’ was not declared in this scope
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |                                        ^~~~~~~~
