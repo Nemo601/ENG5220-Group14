@@ -1,0 +1,6 @@
+Version 1 Testing the motor for proper operation
+4/15/2025 13:10 Start the four motors in sequence.
+4/15/2025 13:10 Motor 1 running
+4/15/2025 13:10 Motor 2 running
+4/15/2025 13:10 Motor 3 running
+4/15/2025 13:10 Motor 4 running
