@@ -61,3 +61,14 @@ Version 3 Testing the motor for keypads operation
 4/15/2025 13:42 garbage_sorting.cpp:11:40: error: ‘motorMap’ was not declared in this scope
    11 |     map<string, vector<StepperMotor*>> motorMap = {
       |                                        ^~~~~~~~
+
+Version 4 Testing the motor for keypads operation
+4/15/2025 13:56Please enter the type (r/o/h/t/q): r
+4/15/2025 13:56Identify to type：recyclable, Processing : motor rotate 100
+4/15/2025 13:56Please enter the type (r/o/h/t/q): o
+4/15/2025 13:56Identify to type：organic, Processing : motor rotate 100
+
+
+
+
+
