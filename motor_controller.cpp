@@ -1,85 +1,52 @@
 #include <wiringPi.h>
 #include <iostream>
-#include <unistd.h>
-#include <vector>
 #include <map>
+#include <vector>
 #include <string>
+#include <unistd.h>
+#include "StepperMotor.h"
 
 using namespace std;
 
-// Define the step sequence (8 steps)
-const int STEPS[8][4] = {
-    {1, 0, 0, 0}, {1, 1, 0, 0}, {0, 1, 0, 0}, {0, 1, 1, 0},
-    {0, 0, 1, 0}, {0, 0, 1, 1}, {0, 0, 0, 1}, {1, 0, 0, 1}
-};
-
-// Define Motor Pin (BCM)
-const vector<vector<int>> MOTOR_PINS = {
-    {4, 17, 23, 24},   // Motor 1
-    {5, 6, 12, 13},    // Motor 2
-    {16, 20, 21, 26},  // Motor 3
-    {18, 19, 22, 27}   // Motor 4
-};
-
-// Initialise all pins
-void initGPIO() {
-    wiringPiSetupGpio();
-    for (const auto& motor : MOTOR_PINS) {
-        for (int pin : motor) {
-            pinMode(pin, OUTPUT);
-            digitalWrite(pin, LOW);
-        }
-    }
-}
-
-// Motor Rotation Function
-void rotateMotor(const vector<int>& pins, int steps = 100, int delayMs = 5) {
-    for (int i = 0; i < steps; ++i) {
-        int idx = i % 8;
-        for (int j = 0; j < 4; ++j) {
-            digitalWrite(pins[j], STEPS[idx][j]);
-        }
-        usleep(delayMs * 1000);
-    }
-    for (int pin : pins) {
-        digitalWrite(pin, LOW);
-    }
-}
-
-// Simulation to identify the type of rubbish（back "recyclable", "organic", ...）
 string getDetectedType() {
-    static int counter = 0;
+    static int i = 0;
     vector<string> types = {"recyclable", "organic", "hazardous", "other"};
-    string detected = types[counter % types.size()];
-    cout << "Spam type identified: " << detected << endl;
-    counter++;
-    sleep(2);  // Analogue recognition time
-    return detected;
+    string type = types[i % types.size()];
+    i++;
+    sleep(2); // Analogue recognition delay
+    return type;
 }
-
-// Rubbish type to motor mapping
-map<string, vector<int>> motorMapping = {
-    {"recyclable", {1, 2}},    // Motor 2 和 Motor 3
-    {"organic", {0}},          // Motor 1
-    {"hazardous", {3}},        // Motor 4
-    {"other", {0, 3}}          // Motor 1 和 Motor 4
-};
 
 int main() {
-    initGPIO();
-    cout << "Rubbish Sorting System Launched..." << endl;
+    wiringPiSetupGpio();  // Using BCM Pin Numbering
+
+    // Instantiate four motors
+    StepperMotor motor1({4, 17, 23, 24});
+    StepperMotor motor2({5, 6, 12, 13});
+    StepperMotor motor3({16, 20, 21, 26});
+    StepperMotor motor4({18, 19, 22, 27});
+
+    // The rubbish type corresponds to the motor to be rotated
+    map<string, vector<StepperMotor*>> motorMap = {
+        {"recyclable", {&motor2, &motor3}},
+        {"organic", {&motor1}},
+        {"hazardous", {&motor4}},
+        {"other", {&motor1, &motor4}}
+    };
+
+    cout << "Launch of Intelligent Waste Separation System..." << endl;
 
     while (true) {
         string type = getDetectedType();
+        cout << "Identify to type：" << type << endl;
 
-        if (motorMapping.find(type) != motorMapping.end()) {
-            for (int motorId : motorMapping[type]) {
-                cout << "starter motor " << motorId + 1 << "..." << endl;
-                rotateMotor(MOTOR_PINS[motorId], 100);
-                usleep(1000 * 500); // 0.5 seconds between motors
+        if (motorMap.count(type)) {
+            for (auto motor : motorMap[type]) {
+                motor->rotate(100);
+                usleep(500 * 1000);
             }
         } else {
-            cout << "Unknown type, skip processing" << endl;
+            cout << "Unknown type, skip processing." << endl;
         }
     }
 
