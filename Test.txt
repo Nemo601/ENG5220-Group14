@@ -4,3 +4,13 @@ Version 1 Testing the motor for proper operation
 4/15/2025 13:10 Motor 2 running
 4/15/2025 13:10 Motor 3 running
 4/15/2025 13:10 Motor 4 running
+
+Version 2 Testing the motor for proper operation
+4/15/2025 13:30 Spam type identified: recyclable
+4/15/2025 13:30 starter motor 2 and 3
+4/15/2025 13:30 Spam type identified: organic
+4/15/2025 13:30 starter motor 1
+4/15/2025 13:30 Spam type identified: hazardous
+4/15/2025 13:30 starter motor 4
+4/15/2025 13:30 Spam type identified: other
+4/15/2025 13:30 starter motor 1 and 4
