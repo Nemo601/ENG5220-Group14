@@ -1,23 +1,17 @@
 #ifndef STEPPERMOTOR_H
 #define STEPPERMOTOR_H
 
-#include <wiringPi.h>
 #include <vector>
-#include <thread>
-#include <chrono>
 
 class StepperMotor {
 public:
-    StepperMotor(const std::vector<int>& pins);
-    void step(int steps, bool clockwise = true, int speedMs = 2);
+    StepperMotor(const std::vector<int>& gpioPins);
+    void rotate(int steps = 100, bool clockwise = true, int delayMs = 5);
     void release();
 
 private:
-    std::vector<int> _pins;
-    const int _sequence[8][4] = {
-        {1,0,0,0}, {1,1,0,0}, {0,1,0,0}, {0,1,1,0},
-        {0,0,1,0}, {0,0,1,1}, {0,0,0,1}, {1,0,0,1}
-    };
+    std::vector<int> pins;
+    static const int sequence[8][4];
 };
 
 #endif
