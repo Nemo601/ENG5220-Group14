@@ -63,12 +63,16 @@ Version 3 Testing the motor for keypads operation
       |                                        ^~~~~~~~
 
 Version 4 Testing the motor for keypads operation
-4/15/2025 13:56Please enter the type (r/o/h/t/q): r
-4/15/2025 13:56Identify to type：recyclable, Processing : motor rotate 100
-4/15/2025 13:56Please enter the type (r/o/h/t/q): o
-4/15/2025 13:56Identify to type：organic, Processing : motor rotate 100
+4/15/2025 13:56 Please enter the type (r/o/h/t/q): r
+4/15/2025 13:56 Identify to type：recyclable, Processing : motor rotate 100
+4/15/2025 13:56 Please enter the type (r/o/h/t/q): o
+4/15/2025 13:56 Identify to type：organic, Processing : motor rotate 100
 
-
-
-
+Version 5 Testing multiple motors running in steps
+4/15/2025 14:12 Input rubbish type (r/o/h/t/q): r
+4/15/2025 14:12 Identify to type：recyclable, start Motor 2, 3 100 steps clockwise, Motor 4 1000 steps clockwise
+4/15/2025 14:12 Motor 2, 3 100 steps counterclockwise, Motor 4 1000 steps counterclockwise //5sec later
+4/15/2025 14:13 Input rubbish type (r/o/h/t/q): o
+4/15/2025 14:13 Identify to type：organic, start Motor 2 100 steps clockwise
+4/15/2025 14:13 Motor 2 100 steps counterclockwise //5sec later
 
