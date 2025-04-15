@@ -117,13 +117,11 @@ We plan to include:
 
 ## 📣 Social Media & Publicity
 
-*Coming soon...*  
 Follow us on:
 
-- [Instagram]()
-- [YouTube]()
-- [TikTok]()
-- [Hackaday.io]()
+[Instagram](https://www.instagram.com/sortmateteam14?igsh=MXgzd2pqbmxndG1vdA==)
+[TikTok](https://www.tiktok.com/@sortmateteam14?_t=ZN-8vYeORF6HlG&_r=1)
+
 
 Let us know if you'd like to feature or test our prototype!
 
