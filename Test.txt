@@ -76,3 +76,7 @@ Version 5 Testing multiple motors running in steps
 4/15/2025 14:13 Identify to type：organic, start Motor 2 100 steps clockwise
 4/15/2025 14:13 Motor 2 100 steps counterclockwise //5sec later
 
+Version 5 Testing Unblock, use timer
+4/16/2025 10:20 Enter the recognition result (1 to 4 or q)：1
+4/16/2025 10:20 Recyclable waste disposal, (start Motor 1, 2 500 steps clockwise// 1sec //Motor 1, 2 500 steps counterclockwise)
+4/16/2025 10:20 Recyclable withdrawn from completion
