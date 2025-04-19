@@ -151,9 +151,9 @@ We would like to thank:
 
 📧 Email: kongbx0064@gmail.com
 
-📁 License: MIT / GPL (TBD) 
+📁 License: MIT
 
-📅 Last Updated: 15/04/2025
+📅 Last Updated: 19/04/2025
 
 ---
 
