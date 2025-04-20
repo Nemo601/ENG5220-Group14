@@ -1,0 +1,82 @@
+Version 1 Testing the motor for proper operation
+4/15/2025 13:10 Start the four motors in sequence.
+4/15/2025 13:10 Motor 1 running
+4/15/2025 13:10 Motor 2 running
+4/15/2025 13:10 Motor 3 running
+4/15/2025 13:10 Motor 4 running
+
+Version 2 Testing the motor for proper operation
+4/15/2025 13:30 Spam type identified: recyclable
+4/15/2025 13:30 starter motor 2 and 3
+4/15/2025 13:30 Spam type identified: organic
+4/15/2025 13:30 starter motor 1
+4/15/2025 13:30 Spam type identified: hazardous
+4/15/2025 13:30 starter motor 4
+4/15/2025 13:30 Spam type identified: other
+4/15/2025 13:30 starter motor 1 and 4
+
+Version 3 Testing the motor for keypads operation
+4/15/2025 13:42 garbage_sorting.cpp:2:5: error: ‘wiringPiSetupGpio’ was not declared in this scope
+    2 |     wiringPiSetupGpio();  // Using BCM Pin Numbering
+      |     ^~~~~~~~~~~~~~~~~
+4/15/2025 13:42 garbage_sorting.cpp:5:5: error: ‘StepperMotor’ was not declared in this scope
+    5 |     StepperMotor motor1({4, 17, 23, 24});
+      |     ^~~~~~~~~~~~
+4/15/2025 13:42 garbage_sorting.cpp:5:40: error: expected primary-expression before ‘)’ token
+    5 |     StepperMotor motor1({4, 17, 23, 24});
+      |                                        ^
+4/15/2025 13:42 garbage_sorting.cpp:6:17: error: expected ‘;’ before ‘motor2’
+    6 |     StepperMotor motor2({5, 6, 12, 13});
+      |                 ^~~~~~~
+      |                 ;
+4/15/2025 13:42 garbage_sorting.cpp:6:39: error: expected primary-expression before ‘)’ token
+    6 |     StepperMotor motor2({5, 6, 12, 13});
+      |                                       ^
+4/15/2025 13:42 garbage_sorting.cpp:7:17: error: expected ‘;’ before ‘motor3’
+    7 |     StepperMotor motor3({16, 20, 21, 26});
+      |                 ^~~~~~~
+      |                 ;
+4/15/2025 13:42 garbage_sorting.cpp:7:41: error: expected primary-expression before ‘)’ token
+    7 |     StepperMotor motor3({16, 20, 21, 26});
+      |                                         ^
+4/15/2025 13:42 garbage_sorting.cpp:8:17: error: expected ‘;’ before ‘motor4’
+    8 |     StepperMotor motor4({18, 19, 22, 27});
+      |                 ^~~~~~~
+      |                 ;
+4/15/2025 13:42 garbage_sorting.cpp:8:41: error: expected primary-expression before ‘)’ token
+    8 |     StepperMotor motor4({18, 19, 22, 27});
+      |                                         ^
+4/15/2025 13:42 garbage_sorting.cpp:11:5: error: ‘map’ was not declared in this scope
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |     ^~~
+4/15/2025 13:42 garbage_sorting.cpp:11:9: error: ‘string’ was not declared in this scope
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |         ^~~~~~
+4/15/2025 13:42 garbage_sorting.cpp:11:17: error: ‘vector’ was not declared in this scope
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |                 ^~~~~~
+4/15/2025 13:42 garbage_sorting.cpp:11:37: error: expected primary-expression before ‘>>’ token
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |                                     ^~
+4/15/2025 13:42 garbage_sorting.cpp:11:40: error: ‘motorMap’ was not declared in this scope
+   11 |     map<string, vector<StepperMotor*>> motorMap = {
+      |                                        ^~~~~~~~
+
+Version 4 Testing the motor for keypads operation
+4/15/2025 13:56 Please enter the type (r/o/h/t/q): r
+4/15/2025 13:56 Identify to type：recyclable, Processing : motor rotate 100
+4/15/2025 13:56 Please enter the type (r/o/h/t/q): o
+4/15/2025 13:56 Identify to type：organic, Processing : motor rotate 100
+
+Version 5 Testing multiple motors running in steps
+4/15/2025 14:12 Input rubbish type (r/o/h/t/q): r
+4/15/2025 14:12 Identify to type：recyclable, start Motor 2, 3 100 steps clockwise, Motor 4 1000 steps clockwise
+4/15/2025 14:12 Motor 2, 3 100 steps counterclockwise, Motor 4 1000 steps counterclockwise //5sec later
+4/15/2025 14:13 Input rubbish type (r/o/h/t/q): o
+4/15/2025 14:13 Identify to type：organic, start Motor 2 100 steps clockwise
+4/15/2025 14:13 Motor 2 100 steps counterclockwise //5sec later
+
+Version 5 Testing Unblock, use timer
+4/16/2025 10:20 Enter the recognition result (1 to 4 or q)：1
+4/16/2025 10:20 Recyclable waste disposal, (start Motor 1, 2 500 steps clockwise// 1sec //Motor 1, 2 500 steps counterclockwise)
+4/16/2025 10:20 Recyclable withdrawn from completion
