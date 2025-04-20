@@ -1,4 +1,4 @@
-#include "Timer.h"
+#include "../include/Timer.h"
 #include <queue>
 #include <chrono>
 #include <thread>
@@ -17,10 +17,10 @@ struct TimerTask {
 queue<TimerTask> taskQueue;
 mutex queueMutex;
 condition_variable cv;
-atomic<bool> running(false);
+atomic<bool> runnings(false);
 
 void timerLoop() {
-    while (running) {
+    while (runnings) {
         unique_lock<mutex> lock(queueMutex);
         if (!taskQueue.empty()) {
             auto now = steady_clock::now();
@@ -40,12 +40,12 @@ void timerLoop() {
 }
 
 void startTimerThread() {
-    running = true;
+    runnings = true;
     thread(timerLoop).detach(); // Starting background threads
 }
 
 void stopTimerThread() {
-    running = false;
+    runnings = false;
     cv.notify_all();
 }
 
@@ -53,4 +53,24 @@ void scheduleTask(int delaySeconds, function<void()> callback) {
     lock_guard<mutex> lock(queueMutex);
     taskQueue.push({steady_clock::now() + seconds(delaySeconds), callback});
     cv.notify_one();
+}
+
+void IntervalTimer::setInterval(std::function<void()> func, int interval_ms) {
+    active = true;
+    thread([=]() {
+        while (active.load()) {
+            auto start = steady_clock::now();
+            func();
+            auto end = steady_clock::now();
+            auto elapsed = duration_cast<milliseconds>(end - start);
+            auto sleep_time = milliseconds(interval_ms) - elapsed;
+            if (sleep_time.count() > 0) {
+                this_thread::sleep_for(sleep_time);
+            }
+        }
+    }).detach();
+}
+
+void IntervalTimer::stop() {
+    active = false;
 }
