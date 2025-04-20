@@ -2,6 +2,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <memory>
 
 GarbageSorter::GarbageSorter(const std::vector<std::vector<int>>& motorPins) {
     initializeMotors(motorPins);
