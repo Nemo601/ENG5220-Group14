@@ -11,14 +11,13 @@
 #include <wiringPi.h>
 #include <thread>
 #include <mutex>
-#include <unordered_map>
 #include "../include/CameraWorker.h"
 
 std::atomic<bool> running(true);
 std::shared_ptr<std::vector<Object>> latest_result;
 std::mutex latest_mutex;
 namespace fs = std::filesystem;
-const std::string watch_path = "/home/pi/images";
+const std::string watch_path = "/home/pi/images"; // 监控目录
 bool image_exists = false;
 
 void signalHandler(int) {
@@ -38,12 +37,6 @@ bool hasImageInDirectory(const std::string& path) {
 }
 
 int main() {
-    // 垃圾编号 -> 分类映射（编号是YOLO检测label，分类是电机控制所需）
-    std::unordered_map<int, int> label_to_category = {
-        {0, 1}, {1, 2}, {2, 3}, {3, 2}, {4, 1}
-        // 按照“标签编号及垃圾分类.xlsx”配置更多项
-    };
-
     wiringPiSetupGpio();
     const int SENSOR_PIN = 00;
     pinMode(SENSOR_PIN, INPUT);
@@ -66,13 +59,13 @@ int main() {
     };
     GarbageSorter sorter(motorPins);
     sorter.setStatusCallback([](const std::string& msg) {
-        std::cout << "[系统状态] " << msg << std::endl;
+        std::cout << "[\u7cfb\u7edf\u72b6\u6001] " << msg << std::endl;
     });
     sorter.startSystem();
 
     YoloDetector detector;
     if (!detector.loadModel("/home/pi/ENG5220/weights/yolov5s_6.0.param", "/home/pi/ENG5220/weights/yolov5s_6.0.bin")) {
-        std::cerr << "模型加载失败。" << std::endl;
+        std::cerr << "模型加载失败。";
         return -1;
     }
 
@@ -96,7 +89,9 @@ int main() {
                             cv::Mat img = cv::imread(entry.path().string());
                             if (!img.empty()) {
                                 detector.detect(img);
-                                break;
+                                // 可选：移动图片到 processed 目录
+                                // fs::rename(entry.path(), "/home/pi/processed/" + entry.path().filename().string());
+                                break; // 只处理一张
                             }
                         }
                     }
@@ -107,6 +102,7 @@ int main() {
 
         if (!now_has_image && image_exists) {
             std::cout << "[事件] 目录无图片，终止识别行为。" << std::endl;
+            // optional: reset latest_result
         }
 
         image_exists = now_has_image;
@@ -121,17 +117,13 @@ int main() {
         }
 
         if (local_copy) {
-            std::thread motor_thread([local_copy, &sorter, &label_to_category]() {
+            std::thread motor_thread([local_copy, &sorter]() {
                 for (const auto& obj : *local_copy) {
                     int label = obj.label;
-                    auto it = label_to_category.find(label);
-                    if (it != label_to_category.end()) {
-                        int category = it->second;
-                        std::cout << "目标编号 " << label << " 匹配分类: " << category << std::endl;
-                        sorter.processWaste(static_cast<GarbageSorter::WasteType>(category));
+                    if (label >= 0 && label < 4) {
+                        std::cout << "启动电机处理目标类型: " << label + 1 << std::endl;
+                        sorter.processWaste(static_cast<GarbageSorter::WasteType>(label + 1));
                         sorter.waitUntilIdle();
-                    } else {
-                        std::cout << "警告：未定义的标签编号 " << label << "，跳过该目标。" << std::endl;
                     }
                 }
                 std::cout << "电机动作完成，线程退出。" << std::endl;
