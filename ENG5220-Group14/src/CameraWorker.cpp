@@ -23,7 +23,7 @@ void CameraWorker::run() {
     try {
         CameraCapture camera;
         Timer timer;
-        timer.start(2000, [&]() {
+        timer.start(5000, [&]() {
             if (camera.captureImage()) {
                 std::cout << "Successful photo.\n";
             } else {
