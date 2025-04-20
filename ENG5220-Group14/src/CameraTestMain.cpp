@@ -1,14 +1,27 @@
-#include "CameraWorker.h"
 #include <iostream>
+#include "CameraCapture.h"
+#include "CameraTimer.h"
 
 int main() {
-    CameraWorker camThread;
-    camThread.start(); 
+    try {
+        CameraCapture camera; 
+        Timer timer;
 
-    std::cout << "The main program is running and logic such as image recognition can be executed here.\n";
-    std::cout << "Press enter to exit..." << std::endl;
-    std::cin.get();
+        timer.start(2000, [&]() {
+            if (camera.captureImage()) {
+                std::cout << "Saved images.\n";
+            } else {
+                std::cerr << "Failed to take a picture.\n";
+            }
+        });
 
-    camThread.stop(); 
+        std::cout << "The image is saved every two seconds while the programme is running.\n Press enter to exit..." << std::endl;
+        std::cin.get();
+
+        timer.stop();
+    } catch (const std::exception& ex) {
+        std::cerr << "Procedure error:" << ex.what() << std::endl;
+    }
+
     return 0;
 }
