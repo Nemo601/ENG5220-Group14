@@ -9,14 +9,17 @@
 
 ## 📌 Project Overview
 
-The **Intelligent Classification Rubbish Bin** is a real-time embedded system designed to address the inefficiencies in daily waste disposal. By leveraging computer vision and multiple sensors, the system automatically detects and classifies waste types—ensuring that items are sorted into the appropriate bins with precision.
+The **Intelligent Classification Rubbish Bin** is a real-time embedded system designed for efficient and sustainable waste management. Built on the Raspberry Pi platform, the system integrates computer vision and multi-threaded control to automatically detect and sort waste into the correct bins.
 
-This project improves sustainability by encouraging automated recycling, reducing human error, and enhancing overall waste management efficiency.
+Leveraging **YOLOv5 object detection, stepper motor control**, and **timer-based task scheduling**, this smart bin ensures precise, real-time classification and disposal. The architecture follows **SOLID object-oriented design principles**, enabling high modularity, testability, and scalability—making it ideal for both research and real-world deployment.
+This project enhances sustainability by promoting automated recycling, reducing human error, and improving overall waste management efficiency.
 
 **Key Features:**
-- Visual recognition of garbage using an onboard camera
-- Real-time sensor-driven bin actuation
-- Fully automatic multi-bin rotation using stepper motors
+- **Camera-based waste recognition** using YOLOv5 and NCNN inference framework
+- **Real-time multi-threaded scheduling** with timer-triggered callbacks
+- **Stepper motor-driven bin rotation system**, offering precise control and extensible logic
+- **Modular class structure** based on SOLID principles for easy maintenance and future upgrades
+- **Decoupled logic and thread-safe data sharing** through callback interfaces
 
 ---
 
@@ -47,12 +50,13 @@ This project improves sustainability by encouraging automated recycling, reducin
 
 ## 📦 Installation
 
-Recommended OS: Raspberry Pi OS / Ubuntu 22.04
+Recommended OS: Raspberry Pi OS (64-bit) / Ubuntu 22.04
+
+Install required dependencies:
 
 ```bash
 sudo apt-get update
-sudo apt-get install cmake g++ libopencv-dev wiringpi
-```
+sudo apt-get install -y cmake g++ libopencv-dev wiringpi libjpeg-dev libpng-dev
 
 ---
 
@@ -62,16 +66,18 @@ sudo apt-get install cmake g++ libopencv-dev wiringpi
 - Raspberry Pi 5
 
 ### Sensors
-- 1x 720P camera module with 2.9mm wide-angle lens
-- 5x LM393 H2010 photoelectric infrared sensors with encoders
-- 120pcs multicolored Dupont wires
+- 1x PCBA H720P 720P camera module with 2.9mm wide-angle lens (5V, 100mA, 1W, 38dB SNR)
+- 1x LM393 H2010 photoelectric infrared sensor (5V, 15.6 x 5.5 x 2.3 cm; 20g)
 
 ### Motors & Mechanics
-- 5x Geared Stepper Motor 28BYJ-48 (5V)
+- 4x 28BYJ-48 Geared Stepper Motor (5V, torque >34.3 mN·m, 283g, 14.3 x 8.5 x 3.5 cm)
+- 4x Flanged Sleeve Bearings (6.35 mm x 15 mm; inner Ø 6.4 mm, outer Ø 9.3 mm)
 - DuPont cable sets
 
-### Additional Components
-- 48x Clear acrylic plastic sheets
+### Structure & Assembly
+- Acrylic board sheets (7 types, various sizes; see design spec)
+- 4x Acrylic round rods (⌀6 mm x 260 mm)
+- 48x Clear acrylic panels (from prior version)
 - Handheld hacksaw
 - Hot glue gun
 
