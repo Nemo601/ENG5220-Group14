@@ -1,0 +1,3 @@
+/home/pi/ENG5220/CMakeFiles/ENG5220.dir
+/home/pi/ENG5220/CMakeFiles/edit_cache.dir
+/home/pi/ENG5220/CMakeFiles/rebuild_cache.dir
