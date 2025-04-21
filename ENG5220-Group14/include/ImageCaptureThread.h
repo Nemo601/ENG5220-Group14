@@ -15,7 +15,7 @@ public:
     void stop();
 
 private:
-    void run(); // 拍照循环
+    void run(); // photocycle
     std::thread thread_;
     std::atomic<bool> running_;
     CameraCapture camera_;
