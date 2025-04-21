@@ -45,7 +45,6 @@ This project enhances sustainability by promoting automated recycling, reducing 
 - [Team Members](#team-members)
 - [Contact](#contact)
 
-
 ---
 
 ## 📦 Installation
@@ -59,6 +58,7 @@ sudo apt-get update
 sudo apt-get install -y cmake g++ libopencv-dev wiringpi libjpeg-dev libpng-dev
 
 ---
+
 
 ## 🔧 Hardware Requirements
 
