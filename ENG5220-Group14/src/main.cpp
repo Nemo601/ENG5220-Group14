@@ -150,7 +150,7 @@ int main() {
         }
     }, 500); // Check every 500ms
 
-    // 非阻塞主线程轮询
+    // Non-blocking main thread polling
     std::cout << "The system is running...(main thread non-blocking)" << std::endl;
     while (running) {
         std::this_thread::yield();  // Non-blocking, giving up CPU
