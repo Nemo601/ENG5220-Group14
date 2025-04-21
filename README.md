@@ -56,6 +56,7 @@ Install required dependencies:
 ```bash
 sudo apt-get update
 sudo apt-get install -y cmake g++ libopencv-dev wiringpi libjpeg-dev libpng-dev
+```
 
 ---
 
