@@ -23,9 +23,9 @@ void ImageCaptureThread::stop() {
 void ImageCaptureThread::run() {
     while (running_) {
         if (camera_.captureImage()) {
-            std::cout << "[线程] 拍照成功。\n";
+            std::cout << "[Thread] Photo taken successfully.\n";
         } else {
-            std::cerr << "[线程] 拍照失败。\n";
+            std::cerr << "[Thread] Failed to take a picture.\n";
         }
         std::this_thread::sleep_for(std::chrono::seconds(2));
     }
