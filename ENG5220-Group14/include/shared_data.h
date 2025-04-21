@@ -12,9 +12,9 @@ struct SharedData {
     std::mutex frame_mutex;
     std::condition_variable frame_cv;
     
-    // YOLO到电机的检测结果
+    // YOLO to motor test results
     struct DetectionResult {
-        // 根据你的检测结果定义
+        // Defined by your test results
         int object_id;
         float confidence;
         cv::Rect bounding_box;
@@ -24,7 +24,7 @@ struct SharedData {
     std::mutex motor_mutex;
     std::condition_variable motor_cv;
     
-    // 系统控制标志
+    // System Control Flag
     bool system_running = true;
 };
 
