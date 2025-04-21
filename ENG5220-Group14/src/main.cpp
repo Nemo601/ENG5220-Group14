@@ -23,7 +23,7 @@ bool image_exists = false;
 
 void signalHandler(int) {
     running = false;
-    std::cout << "\n[系统] 收到退出信号 (Ctrl+C)，准备退出...\n";
+    std::cout << "\n[System] Exit signal received (Ctrl+C), ready to exit...\n";
 }
 
 bool hasImageInDirectory(const std::string& path) {
@@ -57,49 +57,49 @@ int main() {
     pullUpDnControl(SENSOR_PIN, PUD_UP);
     signal(SIGINT, signalHandler);
 
-    std::cout << "等待光电传感器触发..." << std::endl;
+    std::cout << "Waiting for the photoelectric sensor to trigger..." << std::endl;
     while (digitalRead(SENSOR_PIN) == HIGH && running) {
         std::this_thread::yield();
     }
     if (!running) {
-        std::cout << "启动前被中断，退出。\n";
+        std::cout << "Interrupted before startup, exit.\n";
         return 0;
     }
-    std::cout << "物体检测到，系统启动！" << std::endl;
+    std::cout << "Object detected, system activated！" << std::endl;
 
     CameraWorker cw;
     cw.start();
     startTimerThread();
-    signal(SIGINT, signalHandler);  // 再次注册
+    signal(SIGINT, signalHandler);  // Re-register
 
     std::vector<std::vector<int>> motorPins = {
         {4, 17, 23, 24}, {5, 6, 12, 13}, {16, 20, 21, 26}, {18, 19, 22, 27}
     };
     GarbageSorter sorter(motorPins);
     sorter.setStatusCallback([](const std::string& msg) {
-        std::cout << "[系统状态] " << msg << std::endl;
+        std::cout << "[system status] " << msg << std::endl;
     });
     sorter.startSystem();
 
     YoloDetector detector;
     if (!detector.loadModel("/home/pi/ENG5220/weights/yolov5s_6.0.param", "/home/pi/ENG5220/weights/yolov5s_6.0.bin")) {
-        std::cerr << "模型加载失败。" << std::endl;
+        std::cerr << "Model loading failure." << std::endl;
         return -1;
     }
 
     detector.setCallback([](const std::vector<Object>& objs) {
         std::lock_guard<std::mutex> lock(latest_mutex);
         latest_result = std::make_shared<std::vector<Object>>(objs);
-        std::cout << "检测到 " << objs.size() << " 个目标。" << std::endl;
+        std::cout << "detected " << objs.size() << " target。" << std::endl;
     });
 
-    // 定时检查图片
+    // Timing check pictures
     IntervalTimer checkImageTimer;
     checkImageTimer.setInterval([&]() {
         bool now_has_image = hasImageInDirectory(watch_path);
 
         if (now_has_image && !image_exists) {
-            std::cout << "[事件] 检测到新图片，启动识别线程。" << std::endl;
+            std::cout << "[Event] A new image is detected and the recognition thread is started." << std::endl;
             std::thread detect_thread([&detector, &watch_path]() {
                 for (const auto& entry : fs::directory_iterator(watch_path)) {
                     std::string ext = entry.path().extension().string();
@@ -116,7 +116,7 @@ int main() {
         }
 
         if (!now_has_image && image_exists) {
-            std::cout << "[事件] 目录无图片，终止识别行为。" << std::endl;
+            std::cout << "[Event] Catalogue has no pictures, terminating the recognition behaviour." << std::endl;
         }
 
         image_exists = now_has_image;
@@ -126,7 +126,7 @@ int main() {
             std::lock_guard<std::mutex> lock(latest_mutex);
             if (latest_result && !latest_result->empty()) {
                 local_copy = latest_result;
-                latest_result.reset();  // ⚠️ 清除以避免重复处理
+                latest_result.reset();  // ⚠️ Clearance to avoid duplication of processing
             }
         }
 
@@ -137,32 +137,32 @@ int main() {
                     auto it = label_to_category.find(label);
                     if (it != label_to_category.end()) {
                         int category = it->second;
-                        std::cout << "目标编号 " << label << " 匹配分类: " << category << std::endl;
+                        std::cout << "Target number " << label << " Match classification: " << category << std::endl;
                         sorter.processWaste(static_cast<GarbageSorter::WasteType>(category));
                         sorter.waitUntilIdle();
                     } else {
-                        std::cout << "警告：未定义的标签编号 " << label << "，跳过该目标。" << std::endl;
+                        std::cout << "Warning: undefined label number " << label << "，Skip that target." << std::endl;
                     }
                 }
-                std::cout << "电机动作完成，线程退出。" << std::endl;
+                std::cout << "The motor action is complete and the thread exits." << std::endl;
             });
             motor_thread.detach();
         }
-    }, 500); // 每500ms检查一次
+    }, 500); // Check every 500ms
 
     // 非阻塞主线程轮询
-    std::cout << "系统运行中...（主线程非阻塞）" << std::endl;
+    std::cout << "The system is running...(main thread non-blocking)" << std::endl;
     while (running) {
-        std::this_thread::yield();  // 非阻塞，让出CPU
+        std::this_thread::yield();  // Non-blocking, giving up CPU
     }
 
-    // 停止系统
+    // Stop System
     checkImageTimer.stop();
     cw.stop();
     sorter.stopSystem();
     stopTimerThread();
 
-    std::cout << "系统已安全退出。" << std::endl;
+    std::cout << "The system has been safely exited." << std::endl;
     return 0;
 }
 
