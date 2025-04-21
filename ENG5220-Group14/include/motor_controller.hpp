@@ -45,7 +45,7 @@ void rotateMotor(const vector<int>& pins, int steps = 100, int delayMs = 5) {
         }
         usleep(delayMs * 1000);
     }
-    // 释放电机
+    // Release motor
     for (int pin : pins) {
         digitalWrite(pin, LOW);
     }
