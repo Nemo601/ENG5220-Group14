@@ -24,20 +24,6 @@ This project enhances sustainability by promoting automated recycling, reducing 
 
 ---
 
-## 🧩 Table of Contents
-
-- [Installation](#installation)
-- [Hardware Requirements](#hardware-requirements)
-- [System Architecture & Realtime Design](#system-architecture--realtime-design)
-- [Build & Run](#build--run)
-- [Software Testing](#software-testing)
-- [Social Media & Publicity](#social-media--publicity)
-- [Acknowledgements](#acknowledgements)
-- [Team Members](#team-members)
-- [Contact](#contact)
-
----
-
 ## 📦 Installation
 
 Recommended OS: Raspberry Pi OS (64-bit) / Ubuntu 22.04
@@ -79,7 +65,6 @@ sudo apt-get install -y cmake g++ libopencv-dev wiringpi libjpeg-dev libpng-dev
 
 This intelligent waste sorting system is built for **event-driven, real-time embedded control** on Raspberry Pi. It adheres to **modular SOLID design** and minimizes latency through efficient thread management and asynchronous callbacks.
 
----
 
 ### Real-Time Workflow
 
@@ -135,7 +120,6 @@ make
   - Interval accuracy within **±100ms** of target 2s cycle
   - No missing or corrupted image files in the watch directory
 
----
 
 ### YOLOv5 Inference Test
 
@@ -146,7 +130,6 @@ make
   - Callback triggered correctly for all valid inputs
   - Accurate object counts and label consistency across frames
 
----
 
 ### Stepper Motor Response Test
 
@@ -157,7 +140,6 @@ make
   - No threading conflicts or motor blocking observed
   - Detected waste types correctly mapped to motor channels
 
----
 
 ### Sensor Trigger Test
 
@@ -168,7 +150,6 @@ make
   - No false triggers or missed events in continuous testing
   - State transitions from standby → detection → sorting verified
 
----
 
 ### Summary
 
