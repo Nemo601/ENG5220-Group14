@@ -8,7 +8,7 @@
 void draw_objects(const cv::Mat& image, const std::vector<Object>& objects) {
     static const char* class_names[] = {
         "person", "bicycle", "car", "motorcycle", "airplane", "bus"
-        // 可根据 COCO 数据集继续扩展
+        // Can continue to be expanded based on COCO dataset
     };
 
     cv::Mat vis = image.clone();
@@ -20,7 +20,7 @@ void draw_objects(const cv::Mat& image, const std::vector<Object>& objects) {
     }
 
     cv::imshow("YOLOv5 Detection", vis);
-    // 等待（要删除）
+    // Waiting (to be deleted)
     cv::waitKey(0);
 }
 
