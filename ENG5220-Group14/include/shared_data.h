@@ -7,7 +7,7 @@
 #include <opencv2/opencv.hpp>
 
 struct SharedData {
-    // 摄像头到YOLO的帧队列
+    // Camera to YOLO frame queue
     std::queue<cv::Mat> frame_queue;
     std::mutex frame_mutex;
     std::condition_variable frame_cv;
